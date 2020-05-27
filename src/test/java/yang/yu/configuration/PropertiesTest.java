@@ -1,7 +1,8 @@
 package yang.yu.configuration;
 
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -14,7 +15,7 @@ public class PropertiesTest {
     private String confFile = "/conf.properties";
     private Properties properties;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         properties = new Properties();
         try(InputStream in = getClass().getResourceAsStream(confFile)) {

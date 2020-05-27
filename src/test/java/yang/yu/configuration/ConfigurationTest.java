@@ -1,22 +1,22 @@
 package yang.yu.configuration;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 import static org.assertj.core.api.Assertions.offset;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ConfigurationTest {
 
     private String confFile = "/conf.properties";
     private Configuration instance;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         instance = Configuration.builder()
                 .fromClasspath(confFile)
@@ -85,9 +85,9 @@ public class ConfigurationTest {
     /**
      * key不存在,应当抛出ConfigurationKeyNotFoundException异常
      */
-    @Test(expected = ConfigurationKeyNotFoundException.class)
+    @Test
     public void get_string_without_defaultValue_and_without_key() {
-        instance.getString("noneKey");
+        assertThrows(ConfigurationKeyNotFoundException.class, () -> instance.getString("noneKey"));
     }
 
     ///////////////2.2. 字符串型, 有缺省值
@@ -131,25 +131,25 @@ public class ConfigurationTest {
     /**
      * key存在,value存在,格式不正确,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_int_without_defaultValue_and_with_invalid_value() {
-        instance.getInt("name");
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getInt("name"));
     }
 
     /**
      * key存在,value不存在,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_int_without_defaultValue_and_without_value() {
-        instance.getInt("noneValue");
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getInt("noneValue"));
     }
 
     /**
      * key不存在,应当抛出ConfigurationKeyNotFoundException异常
      */
-    @Test(expected = ConfigurationKeyNotFoundException.class)
+    @Test
     public void get_int_without_defaultValue_and_without_key() {
-        instance.getInt("noneKey");
+        assertThrows(ConfigurationKeyNotFoundException.class, () -> instance.getInt("noneKey"));
     }
 
     /////////////3.2. Int型配置项,有缺省值
@@ -174,10 +174,10 @@ public class ConfigurationTest {
     /**
      * key存在,value存在,格式不正确,defaultWhenParseFailed=false,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_int_with_defaultValue_and_with_invalid_value_and_defaultWhenParseFailed_is_false() {
         instance.setDefaultWhenParseFailed(false);
-        instance.getInt("name", 1000);
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getInt("name", 1000));
     }
 
     /**
@@ -192,10 +192,10 @@ public class ConfigurationTest {
     /**
      * key存在,value不存在,defaultWhenParseFailed=false,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_int_with_defaultValue_and_without_value_and_defaultWhenParseFailed_is_false() {
         instance.setDefaultWhenParseFailed(false);
-        instance.getInt("noneValue", 1000);
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getInt("noneValue", 1000));
     }
 
     /**
@@ -222,25 +222,25 @@ public class ConfigurationTest {
     /**
      * key存在,value存在,格式不正确,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_long_without_defaultValue_and_with_invalid_value() {
-        instance.getLong("name");
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getLong("name"));
     }
 
     /**
      * key存在,value不存在,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_long_without_defaultValue_and_without_value() {
-        instance.getLong("noneValue");
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getLong("noneValue"));
     }
 
     /**
      * key不存在,应当抛出ConfigurationKeyNotFoundException异常
      */
-    @Test(expected = ConfigurationKeyNotFoundException.class)
+    @Test
     public void get_long_without_defaultValue_and_without_key() {
-        instance.getLong("noneKey");
+        assertThrows(ConfigurationKeyNotFoundException.class, () -> instance.getLong("noneKey"));
     }
 
     /////////////4.2. Long型配置项,有缺省值
@@ -265,10 +265,10 @@ public class ConfigurationTest {
     /**
      * key存在,value存在,格式不正确,defaultWhenParseFailed=false,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_long_with_defaultValue_and_with_invalid_value_and_defaultWhenParseFailed_is_false() {
         instance.setDefaultWhenParseFailed(false);
-        instance.getLong("name", 1000);
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getLong("name", 1000));
     }
 
     /**
@@ -283,10 +283,10 @@ public class ConfigurationTest {
     /**
      * key存在,value不存在,defaultWhenParseFailed=false,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_long_with_defaultValue_and_without_value_and_defaultWhenParseFailed_is_false() {
         instance.setDefaultWhenParseFailed(false);
-        instance.getLong("noneValue", 1000);
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getLong("noneValue", 1000));
     }
 
     /**
@@ -313,25 +313,25 @@ public class ConfigurationTest {
     /**
      * key存在,value存在,格式不正确,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_double_without_defaultValue_and_with_invalid_value() {
-        instance.getDouble("name");
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getDouble("name"));
     }
 
     /**
      * key存在,value不存在,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_double_without_defaultValue_and_without_value() {
-        instance.getDouble("noneValue");
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getDouble("noneValue"));
     }
 
     /**
      * key不存在,应当抛出ConfigurationKeyNotFoundException异常
      */
-    @Test(expected = ConfigurationKeyNotFoundException.class)
+    @Test
     public void get_double_without_defaultValue_and_without_key() {
-        instance.getDouble("noneKey");
+        assertThrows(ConfigurationKeyNotFoundException.class, () -> instance.getDouble("noneKey"));
     }
 
     /////////////5.2. Double型配置项,有缺省值
@@ -356,10 +356,10 @@ public class ConfigurationTest {
     /**
      * key存在,value存在,格式不正确,defaultWhenParseFailed=false,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_double_with_defaultValue_and_with_invalid_value_and_defaultWhenParseFailed_is_false() {
         instance.setDefaultWhenParseFailed(false);
-        instance.getDouble("name", 1000.0);
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getDouble("name", 1000.0));
     }
 
     /**
@@ -374,10 +374,10 @@ public class ConfigurationTest {
     /**
      * key存在,value不存在,defaultWhenParseFailed=false,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_double_with_defaultValue_and_without_value_and_defaultWhenParseFailed_is_false() {
         instance.setDefaultWhenParseFailed(false);
-        instance.getDouble("noneValue", 1000.0);
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getDouble("noneValue", 1000.0));
     }
 
     /**
@@ -405,25 +405,25 @@ public class ConfigurationTest {
     /**
      * key存在,value存在,格式不正确,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_boolean_without_defaultValue_and_with_invalid_value() {
-        instance.getBoolean("name");
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getBoolean("name"));
     }
 
     /**
      * key存在,value不存在,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_boolean_without_defaultValue_and_without_value() {
-        instance.getBoolean("noneValue");
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getBoolean("noneValue"));
     }
 
     /**
      * key不存在,应当抛出ConfigurationKeyNotFoundException异常
      */
-    @Test(expected = ConfigurationKeyNotFoundException.class)
+    @Test
     public void get_boolean_without_defaultValue_and_without_key() {
-        instance.getBoolean("noneKey");
+        assertThrows(ConfigurationKeyNotFoundException.class, () -> instance.getBoolean("noneKey"));
     }
 
     /////////////6.2. Boolean型配置项,有缺省值
@@ -450,10 +450,10 @@ public class ConfigurationTest {
     /**
      * key存在,value存在,格式不正确,defaultWhenParseFailed=false,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_boolean_with_defaultValue_and_with_invalid_value_and_defaultWhenParseFailed_is_false() {
         instance.setDefaultWhenParseFailed(false);
-        instance.getBoolean("name", true);
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getBoolean("name", true));
     }
 
     /**
@@ -462,17 +462,17 @@ public class ConfigurationTest {
     @Test
     public void get_boolean_with_defaultValue_and_without_value_and_defaultWhenParseFailed_is_true() {
         instance.setDefaultWhenParseFailed(true);
-        assertThat(instance.getBoolean("noneValue", true)).isTrue();
+        assertThat(instance.getBoolean("noneValue1", true)).isTrue();
         assertThat(instance.getBoolean("noneValue", false)).isFalse();
     }
 
     /**
      * key存在,value不存在,defaultWhenParseFailed=false,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_boolean_with_defaultValue_and_without_value_and_defaultWhenParseFailed_is_false() {
         instance.setDefaultWhenParseFailed(false);
-        instance.getBoolean("noneValue", true);
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getBoolean("noneValue", true));
     }
 
     /**
@@ -501,25 +501,25 @@ public class ConfigurationTest {
     /**
      * key存在,value存在,格式不正确,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_date_without_defaultValue_and_with_invalid_value() {
-        instance.getDate("name");
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getDate("name"));
     }
 
     /**
      * key存在,value不存在,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_date_without_defaultValue_and_without_value() {
-        instance.getDate("noneValue");
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getDate("noneValue"));
     }
 
     /**
      * key不存在,应当抛出ConfigurationKeyNotFoundException异常
      */
-    @Test(expected = ConfigurationKeyNotFoundException.class)
+    @Test
     public void get_date_without_defaultValue_and_without_key() {
-        instance.getDate("noneKey");
+        assertThrows(ConfigurationKeyNotFoundException.class, () -> instance.getDate("noneKey"));
     }
 
     /////////////7.2. Date型配置项,有缺省值
@@ -547,11 +547,11 @@ public class ConfigurationTest {
     /**
      * key存在,value存在,格式不正确,defaultWhenParseFailed=false,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_date_with_defaultValue_and_with_invalid_value_and_defaultWhenParseFailed_is_false() {
         Date defaultValue = DateUtils.createDate(1968, Calendar.MAY, 20);
         instance.setDefaultWhenParseFailed(false);
-        instance.getDate("name", defaultValue);
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getDate("name", defaultValue));
     }
 
     /**
@@ -567,11 +567,11 @@ public class ConfigurationTest {
     /**
      * key存在,value不存在,defaultWhenParseFailed=false,应当抛出ConfigurationValueParseException异常
      */
-    @Test(expected = ConfigurationValueParseException.class)
+    @Test
     public void get_date_with_defaultValue_and_without_value_and_defaultWhenParseFailed_is_false() {
         Date defaultValue = DateUtils.createDate(1968, Calendar.MAY, 20);
         instance.setDefaultWhenParseFailed(false);
-        instance.getDate("noneValue", defaultValue);
+        assertThrows(ConfigurationValueParseException.class, () -> instance.getDate("noneValue", defaultValue));
     }
 
     /**

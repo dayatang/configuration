@@ -1,7 +1,7 @@
 package yang.yu.configuration;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -14,7 +14,7 @@ public class AppConfigurationTest {
 
     private AppConfiguration instance;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         instance = new AppConfiguration();
     }
